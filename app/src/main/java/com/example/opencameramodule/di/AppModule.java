@@ -1,18 +1,27 @@
 package com.example.opencameramodule.di;
 
+import android.app.Application;
+import android.content.Context;
+
 import com.example.opencameramodule.datamanager.MDataManager;
 import com.example.opencameramodule.datamanager.MDataManagerImpl;
 import com.example.opencameramodule.datamanager.api.APIHelper;
 import com.example.opencameramodule.datamanager.api.APIHelperImpl;
 import com.example.opencameramodule.datamanager.database.DBHelper;
 import com.example.opencameramodule.datamanager.database.DBHelperImpl;
+import com.example.opencameramodule.datamanager.localjson.JsonService;
+import com.example.opencameramodule.datamanager.localjson.JsonToString;
+import com.example.opencameramodule.datamanager.localjson.LocalJsonHelper;
+import com.example.opencameramodule.datamanager.localjson.LocalJsonHelperImpl;
 import com.example.opencameramodule.datamanager.sharedpref.SharedPrefHelper;
 import com.example.opencameramodule.datamanager.sharedpref.SharedPrefHelperImpl;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 
+@Module
 public class AppModule {
     /**
      * Provides Data Manager instance
@@ -60,5 +69,29 @@ public class AppModule {
     @Singleton
     SharedPrefHelper providesPreferenceHelper(SharedPrefHelperImpl preferenceHelper) {
         return preferenceHelper;
+    }
+
+    @Provides
+    @Singleton
+    LocalJsonHelper providesLocalJson(LocalJsonHelperImpl localJsonHelper) {
+        return localJsonHelper;
+    }
+
+    @Provides
+    @Singleton
+    JsonService providesJsonService(JsonToString jsonToString) {
+        return new JsonService(jsonToString);
+    }
+
+    @Provides
+    @Singleton
+    JsonToString providesJsonToString(Context context) {
+        return new JsonToString(context);
+    }
+
+    @Provides
+    @Singleton
+    Context providesContext(Application application) {
+        return application;
     }
 }
