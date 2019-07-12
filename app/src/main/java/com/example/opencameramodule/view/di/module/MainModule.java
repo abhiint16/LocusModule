@@ -20,7 +20,7 @@ public class MainModule {
 
     @Provides
     public ViewModelProvider.Factory testViewModelProvider(MainActivityViewModel scheduleTestsFragmentViewModel) {
-        return new ViewModelProviderFactory<>(scheduleTestsFragmentViewModel);
+        return new MainViewModelFactory<>(scheduleTestsFragmentViewModel);
     }
 
 }

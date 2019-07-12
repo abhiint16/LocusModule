@@ -1,8 +1,12 @@
 package com.example.opencameramodule.view.model;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Parent implements Serializable {
 
@@ -13,7 +17,37 @@ public class Parent implements Serializable {
     @SerializedName("title")
     private String title;
     @SerializedName("dataMap")
-    private DataMap dataMap;
+    private DataMap dataMap = new DataMap();
+
+    private Map<String, String> stringMap = new HashMap<>();
+
+    public Map<String, String> getStringMap() {
+        return stringMap;
+    }
+
+    public void setStringMap(Map<String, String> stringMap) {
+        this.stringMap = stringMap;
+    }
+
+    private Boolean isEnabled = false;
+
+    private Bitmap bitmap;
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean enabled) {
+        isEnabled = enabled;
+    }
 
     public String getType() {
         return type;

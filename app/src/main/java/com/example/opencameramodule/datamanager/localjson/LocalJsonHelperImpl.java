@@ -2,6 +2,8 @@ package com.example.opencameramodule.datamanager.localjson;
 
 import com.example.opencameramodule.view.model.Parent;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
@@ -18,7 +20,7 @@ public class LocalJsonHelperImpl implements LocalJsonHelper {
 
 
     @Override
-    public Observable<Parent> getData() {
+    public Observable<List<Parent>> getData() {
         return jsonService.getData();
     }
 }

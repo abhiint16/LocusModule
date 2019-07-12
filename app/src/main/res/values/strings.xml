@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">OpenCameraModule</string>
+    <string name="app_name">LocusModule</string>
+    <string name="item_comment_text">Provide Comment</string>
+
+
+    <item name="position" type="id" />
+
 </resources>

@@ -4,10 +4,14 @@ package com.example.opencameramodule.datamanager.localjson;
 import com.example.opencameramodule.view.model.Data;
 import com.example.opencameramodule.view.model.Parent;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -23,38 +27,44 @@ public class JsonService {
         this.jsonToString = jsonToString;
     }
 
-    public Observable<Parent> getData() {
+    public Observable<List<Parent>> getData() {
         String dataString = jsonToString.loadJSONFromAsset();
-        Parent data = new Parent();
+        List<Parent> data = new ArrayList<>();
 
         Gson gson = new Gson();
 
-        Parent response = gson.fromJson(dataString, Parent.class);
-        return Observable.fromIterable((Iterable<? extends Parent>) response);
+        /*List<Parent> response = (List<Parent>) gson.fromJson(dataString, Parent.class);
+        return Observable.fromIterable((Iterable<? extends Parent>) response);*/
 
-        /*try {
+        try {
             JSONArray jsonArray = new JSONArray(dataString);
             for (int i = 0; i < jsonArray.length(); i++) {
+                Parent parent = new Parent();
+
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-            }
 
-            JSONObject obj = new JSONObject(dataString);
-            JSONArray jArray = obj.getJSONArray("Contact");
+                String type = jsonObject.getString("type");
+                String id = jsonObject.getString("id");
+                String title = jsonObject.getString("title");
+                JSONObject dataMap = jsonObject.getJSONObject("dataMap");
 
-            for (int i = 0; i < jArray.length(); i++) {
-                JSONObject jo_inside = jArray.getJSONObject(i);
-                String firstname = jo_inside.getString("firstname");
-                String lastname = jo_inside.getString("lastname");
-                Long phoneno = jo_inside.getLong("phoneno");
+                parent.setType(type);
+                parent.setId(id);
+                parent.setTitle(title);
 
-                data.firstname.add(firstname);
-                data.lastname.add(lastname);
-                data.phone.add(phoneno);
+                if (dataMap.has("options")) {
+                    JSONArray option = dataMap.getJSONArray("options");
+                    for (int j = 0; j < option.length(); j++) {
+                        parent.getDataMap().getOptions().add((String) option.get(j));
+                    }
+                }
+                data.add(parent);
+
             }
             return Observable.just(data);
         } catch (JSONException e) {
             e.printStackTrace();
-            return Observable.fromIterable((Iterable<? extends Data>) data);
-        }*/
+            return null;
+        }
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.opencameramodule.view.model.Parent" />
+
+        <variable
+            name="viewModel"
+            type="com.example.opencameramodule.view.viewmodel.MainActivityViewModel" />
+
+        <variable
+            name="clickListener"
+            type="com.example.opencameramodule.view.PhotoClickListener" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="removeButtonEnable"
+            type="boolean" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="@dimen/dimen_20"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/item_photo_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_20"
+            android:background="@color/back_color"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:id="@+id/item_photo_cancel"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:layout_marginRight="@dimen/dimen_40"
+            android:background="@android:color/transparent"
+            android:src="@drawable/photo_remove"
+            android:visibility="@{removeButtonEnable?View.VISIBLE:View.GONE, default=gone}" />
+
+    </RelativeLayout>
+</layout>

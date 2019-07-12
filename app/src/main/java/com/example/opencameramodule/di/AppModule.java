@@ -3,18 +3,22 @@ package com.example.opencameramodule.di;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.room.Room;
+
 import com.example.opencameramodule.datamanager.MDataManager;
 import com.example.opencameramodule.datamanager.MDataManagerImpl;
 import com.example.opencameramodule.datamanager.api.APIHelper;
 import com.example.opencameramodule.datamanager.api.APIHelperImpl;
 import com.example.opencameramodule.datamanager.database.DBHelper;
 import com.example.opencameramodule.datamanager.database.DBHelperImpl;
+import com.example.opencameramodule.datamanager.database.database.LocusDatabase;
 import com.example.opencameramodule.datamanager.localjson.JsonService;
 import com.example.opencameramodule.datamanager.localjson.JsonToString;
 import com.example.opencameramodule.datamanager.localjson.LocalJsonHelper;
 import com.example.opencameramodule.datamanager.localjson.LocalJsonHelperImpl;
 import com.example.opencameramodule.datamanager.sharedpref.SharedPrefHelper;
 import com.example.opencameramodule.datamanager.sharedpref.SharedPrefHelperImpl;
+import com.example.opencameramodule.view.AppValues;
 
 import javax.inject.Singleton;
 
@@ -94,4 +98,21 @@ public class AppModule {
     Context providesContext(Application application) {
         return application;
     }
+
+    @Provides
+    @Singleton
+    LocusDatabase providesDataBase(Context context, String databaseName) {
+        return Room.databaseBuilder(context, LocusDatabase.class, databaseName).fallbackToDestructiveMigration().build();
+    }
+
+    @Provides
+    Integer providesDatabaseVersion() {
+        return AppValues.Constants.DB_VERSION;
+    }
+
+    @Provides
+    String providesDatabaseName() {
+        return AppValues.Constants.DB_NAME;
+    }
+
 }
